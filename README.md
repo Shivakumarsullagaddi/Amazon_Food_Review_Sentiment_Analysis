@@ -29,11 +29,11 @@ flowchart LR
 
 | Stage | Notebook (Production Code) | Technical Documentation | Core Techniques |
 | :--- | :--- | :--- | :--- |
-| **1. Dataset Cleaning** | [`1_cleaning.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/1_cleaning.ipynb) | [`01_dataset_cleaning.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/01_dataset_cleaning.md) | SQLite ingestion, Score 3 removal, deduplication, helpfulness validation |
-| **2. Text Preprocessing** | [`2_text_prerprossing_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/2_text_prerprossing_prod.ipynb) | [`02_text_preprocessing.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/02_text_preprocessing.md) | BeautifulSoup tag stripping, regex decontraction, stopword removal, stemming vs lemmatization, Word Clouds |
-| **3. Feature Extraction** | [`3_feature_extraction_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/3_feature_extraction_prod.ipynb) | [`03_feature_extraction.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/03_feature_extraction.md) | Bag-of-Words (CSR matrix), N-grams (1, 2), TF-IDF weighted Word Clouds, Bigram bar charts, sparsity heatmaps |
-| **4. Classification Model** | [`4_model_building_naive_bayes_classifier_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/4_model_building_naive_bayes_classifier_prod.ipynb) | [`04_model_building_naive_bayes.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/04_model_building_naive_bayes.md) | Stratified 80/20 train/test split, TF-IDF unigram + bigram vectorizer, Multinomial Naive Bayes, confusion matrix heatmap |
-| **5. Semantic Clustering** | [`5_similarity_and_clustering_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/5_similarity_and_clustering_prod.ipynb) | [`05_similarity_and_clustering.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/05_similarity_and_clustering.md) | Word2Vec Skip-Gram embeddings (50d), document sentence vector averaging, K-Means (k=5), Cosine Similarity search, 2D PCA |
+| **1. Dataset Cleaning** | [`1_cleaning.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/1_cleaning.ipynb) | [`01_dataset_cleaning.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/01_dataset_cleaning.md) | SQLite ingestion, Score 3 removal, deduplication, helpfulness validation |
+| **2. Text Preprocessing** | [`2_text_prerprossing_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/2_text_prerprossing_prod.ipynb) | [`02_text_preprocessing.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/02_text_preprocessing.md) | BeautifulSoup tag stripping, regex decontraction, stopword removal, stemming vs lemmatization, Word Clouds |
+| **3. Feature Extraction** | [`3_feature_extraction_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/3_feature_extraction_prod.ipynb) | [`03_feature_extraction.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/03_feature_extraction.md) | Bag-of-Words (CSR matrix), N-grams (1, 2), TF-IDF weighted Word Clouds, Bigram bar charts, sparsity heatmaps |
+| **4. Classification Model** | [`4_model_building_naive_bayes_classifier_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/4_model_building_naive_bayes_classifier_prod.ipynb) | [`04_model_building_naive_bayes.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/04_model_building_naive_bayes.md) | Stratified 80/20 train/test split, TF-IDF unigram + bigram vectorizer, Multinomial Naive Bayes, confusion matrix heatmap |
+| **5. Semantic Clustering** | [`5_similarity_and_clustering_prod.ipynb`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/5_similarity_and_clustering_prod.ipynb) | [`05_similarity_and_clustering.md`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/documentation/05_similarity_and_clustering.md) | Word2Vec Skip-Gram embeddings (50d), document sentence vector averaging, K-Means (k=5), Cosine Similarity search, 2D PCA |
 
 ---
 
@@ -57,7 +57,7 @@ flowchart LR
 - **Output Artifact**: [`preprocessed_reviews.csv`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/preprocessed_reviews.csv).
 
 ### 3. Feature Extraction
-- **Bag of Words (BoW)**: Built a 50,000-feature vocabulary using [`CountVectorizer`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/3_feature_extraction_prod.ipynb), stored as a Compressed Sparse Row (CSR) matrix.
+- **Bag of Words (BoW)**: Built a 50,000-feature vocabulary using [`CountVectorizer`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/3_feature_extraction_prod.ipynb), stored as a Compressed Sparse Row (CSR) matrix.
 - **N-Grams**: Captured phrase context using unigrams and bigrams (`ngram_range=(1, 2)`, `min_df=10`, `max_features=5000`).
 - **TF-IDF**: Weighted discriminative terms higher than common words. Evaluated across corpus with a TF-IDF weighted Word Cloud.
 - **TF-IDF with Bigrams**: Extracted 8,000 unigram and bigram features. Extracted top 25 sentiment bigrams (`highly recommend`, `gluten free`, `green tea`, `not like`) and verified matrix sparsity via a 120x120 slice heatmap.
@@ -65,7 +65,7 @@ flowchart LR
 ### 4. Machine Learning Classification (Naive Bayes)
 - **Train / Test Partition**: Stratified split of 365,331 reviews (80% train: 292,264; 20% test: 73,067).
 - **Leakage Prevention**: TF-IDF vectorizer fit strictly on `X_train` and applied to `X_test`.
-- **Model**: [`MultinomialNB`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/4_model_building_naive_bayes_classifier_prod.ipynb).
+- **Model**: [`MultinomialNB`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/4_model_building_naive_bayes_classifier_prod.ipynb).
 - **Performance**:
   - **Accuracy**: **90.10%**
   - **Confusion Matrix**: True Negatives = 4,727; False Positives = 6,746; False Negatives = 484; True Positives = 61,110
@@ -78,7 +78,7 @@ flowchart LR
 - **Review Vector Aggregation**: Averaged word embeddings across each review to create a dense 50-dimensional sentence vector matrix `(294156, 50)`.
 - **K-Means Clustering**: Partitioned reviews into $k=5$ distinct thematic feedback clusters.
 - **Cosine Similarity Retrieval**: Enabled vector-based retrieval of semantically identical reviews, achieving similarity scores up to 0.970.
-- **2D Dimensionality Reduction**: Projected 10,000 review vectors into 2D space using [`PCA`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/prod_code/5_similarity_and_clustering_prod.ipynb) and visualized clusters via a Seaborn scatter plot.
+- **2D Dimensionality Reduction**: Projected 10,000 review vectors into 2D space using [`PCA`](file:///D:/nxtwave/NLP/amazon_food_review_sentimental_analysis/code/5_similarity_and_clustering_prod.ipynb) and visualized clusters via a Seaborn scatter plot.
 
 ---
 
@@ -97,7 +97,7 @@ amazon_food_review_sentimental_analysis/
 │   ├── 04_model_building_naive_bayes.md
 │   └── 05_similarity_and_clustering.md
 │
-├── prod_code/
+├── code/
 │   ├── 1_cleaning.ipynb
 │   ├── 2_text_prerprossing_prod.ipynb
 │   ├── 3_feature_extraction_prod.ipynb
